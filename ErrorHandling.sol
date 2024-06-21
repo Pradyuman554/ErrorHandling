@@ -7,7 +7,7 @@ contract DSA{
     }
 
     function reVert(uint questions) public pure {
-        if (questions <= questions) {
+        if (questions <= 200) {
             revert("Sorry, you need to practice more!");
         }
     }
