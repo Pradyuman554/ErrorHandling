@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.17;
 
-contract Bookstore {
+contract Minerva {
     address public owner;
     uint public types;
     uint public bookCount;
