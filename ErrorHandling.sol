@@ -17,8 +17,7 @@ contract Minerva{
 
     function addBook(uint stock, uint price) public payable{
         require(msg.sender == owner, "Not owner");
-        require(price > 0 && stock > 0, "Invalid input");
-        require(storeMoney >= price*stock);
+        require(storeMoney >= price*stock, "Insufficient Funds");
         books[++types] = Book(price, stock);
         bookCount += stock;
         storeMoney -= price*stock;
@@ -30,7 +29,7 @@ contract Minerva{
 
     function purchaseBook(uint id) public payable {
         Book storage book = books[id];
-        require(book.price > 0 && book.stock > 0, "Invalid purchase");
+        if (!(book.price > 0 && book.stock > 0)) revert("Invalid purchase");
         book.stock--;
         storeMoney += books[id].price;
         bookCount--;
@@ -38,9 +37,7 @@ contract Minerva{
     }
 
     function refund(uint id) public{
-        require(msg.sender == owner, "Not owner");
-        assert(purchased>=0);
-        assert(storeMoney>=books[id].price);
+        assert(msg.sender == owner);
         books[id].stock++;
         bookCount++;
         purchased--;
